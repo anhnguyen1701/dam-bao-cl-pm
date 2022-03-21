@@ -1,0 +1,197 @@
+.header-icon {
+    margin-left: 15px;
+    color: red;
+}
+
+:root {
+    --bs-pink: #F082AC;
+    --bs-white: #F7F6F1;
+    --bs-font-serif: 'Playfair Display';
+}
+
+/* width */
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+/* Track */
+
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+
+/* ::-webkit-scrollbar-thumb:hover {
+    background: #b30000;
+} */
+
+body {
+    background-color: var(--bs-white)!important;
+    font-family: var(--vs-font-serif)!important;
+    font-size: 12px!important;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+html {
+    overflow-x: hidden !important;
+}
+
+h1 {
+    font-size: 18px!important;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+main {
+    padding-top: 75px;
+}
+
+.main-product {
+    padding-left: 125px;
+    padding-right: 140px;
+}
+
+.main-cart {
+    padding-left: 100px;
+    padding-right: 250px;
+}
+
+.main-login {
+    padding-left: 100px;
+    padding-right: 250px;
+}
+
+.main-checkout {
+    padding-left: 100px;
+    padding-right: 450px;
+}
+
+.main-menu {
+    padding-left: 100px;
+    padding-right: 50px;
+}
+
+.card-top {
+    overflow: hidden !important;
+    border: 0px!important;
+    border-radius: 0px!important;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+}
+
+.card-top:hover img {
+    transform: scale(1.2) !important;
+}
+
+.card-top:hover .card-img-overlay {
+    visibility: visible;
+    opacity: 1;
+}
+
+.card-top>img {
+    width: 100%;
+    height: auto;
+    transition: transform .5s!important;
+}
+
+.card-top>.card-img-overlay {
+    transition: visibility 0s, opacity 0.5s linear;
+    opacity: 0;
+    visibility: hidden;
+    color: white !important;
+}
+
+.card-left {
+    overflow: hidden !important;
+    border: 0px!important;
+    border-radius: 0px!important;
+}
+
+.card-body {
+    z-index: 1!important;
+    background-color: white!important;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 35px;
+    row-gap: 35px;
+}
+
+.content-product {
+    display: grid;
+    grid-template-columns: auto 300px auto auto;
+    column-gap: 20px;
+}
+
+.content-cart {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 45px;
+}
+
+.w-100 {
+    margin-bottom: 10px;
+}
+
+.checkout-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    background-color: white !important;
+    width: 100%;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+#loader {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 60px;
+    height: 60px;
+    margin: -76px 0 0 -76px;
+    border: 6px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 6px solid black;
+    -webkit-animation: spin 0.6s linear infinite;
+    animation: spin 0.6s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
