@@ -2,9 +2,8 @@
 session_start();
 include("config.php");
 
-$_POST['search'] = "";
-if (isset($_POST['submit'])) {
-  $keyword = $_POST['search'];
+if (!isset($_GET['search'])) {
+  $_GET['search'] = "";
 }
 ?>
 
@@ -26,10 +25,6 @@ if (isset($_POST['submit'])) {
   <script src="js/sidebar.js"></script>
 
   <script>
-    function btnClick() {
-      const element = document.getElementById("content");
-      element.remove();
-    }
   </script>
 </head>
 
@@ -39,41 +34,94 @@ if (isset($_POST['submit'])) {
 
   <main>
     <div class="container px-4">
-      <form action="" method="post">
-        <input type="text" name="search">
-        <input type="submit" name="submit" value="Search" onclick="btnClick()">
+      <form action="" method="GET">
+        <div class="input-group mb-3">
+          <input type="text" name="search" value="<?php if (isset($_GET['search'])) {
+                                                    echo $_GET['search'];
+                                                  } ?>" class="form-control" placeholder="Search data">
+          <button type="submit" class="btn btn-primary">Search</button>
+        </div>
       </form>
 
       <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-1 gx-3 gy-3">
         <?php
-        $query = "SELECT * FROM product";
-        $result = mysqli_query($conn, $query);
-        if (mysqli_num_rows($result) > 0) {
-          while ($row = mysqli_fetch_array($result)) {
-            $id = $row['id'];
-            $name = $row['name'];
-            $price = $row['price'];
-            $img1 = $row['img1'];
-            $price_text = number_format($price);
-
-            echo "
-              <div class='col' id='content'>
-              <a href='product.php?p=$id'>
-                <div class='card card-top'>
-                  <img src='$img1' class='card-img-top'>
-                  <div class='card-body'>
-                    <h5 class='card-title'>$name</h5>
-                    <p class='card-text'>$price_text VND</p>
-                  </div>
-                </div>
-              </a>
-            </div>
-              ";
-          }
+        $query = "SELECT category FROM product GROUP BY category";
+        $query_run = mysqli_query($conn, $query);
+        foreach ($query_run as $item) {
+          $cat = $item['category'];
+          echo "
+          <form action='' method='GET'>
+            <input type='hidden' name='filter' value='$cat' id='cat-value'></input>
+            <button class='filter' onclick='submitFilter()'>$cat</button>
+          </form>
+            ";
         }
         ?>
       </div>
 
+      <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-1 gx-3 gy-3">
+        <?php
+        if (isset($_GET['filter']) && $_GET['search'] == '') {
+          if (isset($_GET['filter'])) {
+            $filtervalues = $_GET['filter'];
+            $query = "SELECT * FROM product WHERE category='$filtervalues' ";
+            $query_run = mysqli_query($conn, $query);
+
+            if (mysqli_num_rows($query_run) > 0) {
+              foreach ($query_run as $item) {
+                $id = $item['id'];
+                $name = $item['name'];
+                $price = $item['price'];
+                $img1 = $item['img1'];
+                $price_text = number_format($price);
+
+                echo "
+                <div class='col' id='content'>
+                  <a href='product.php?p=$id'>
+                    <div class='card card-top'>
+                      <img src='$img1' class='card-img-top'>
+                      <div class='card-body'>
+                        <h5 class='card-title'>$name</h5>
+                        <p class='card-text'>$price_text VND</p>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                ";
+              }
+            }
+          }
+        } else if (isset($_GET['search'])) {
+          $filtervalues = $_GET['search'];
+          $query = "SELECT * FROM product WHERE name LIKE '%$filtervalues%' ";
+          $query_run = mysqli_query($conn, $query);
+
+          if (mysqli_num_rows($query_run) > 0) {
+            foreach ($query_run as $item) {
+              $id = $item['id'];
+              $name = $item['name'];
+              $price = $item['price'];
+              $img1 = $item['img1'];
+              $price_text = number_format($price);
+
+              echo "
+              <div class='col' id='content'>
+                <a href='product.php?p=$id'>
+                  <div class='card card-top'>
+                    <img src='$img1' class='card-img-top'>
+                    <div class='card-body'>
+                      <h5 class='card-title'>$name</h5>
+                      <p class='card-text'>$price_text VND</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              ";
+            }
+          }
+        }
+        ?>
+      </div>
     </div>
   </main>
 </body>
