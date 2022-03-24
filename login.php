@@ -6,7 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $myemail = mysqli_real_escape_string($conn, $_POST['email']);
   $mypassword = mysqli_real_escape_string($conn, $_POST['password']);
 
-  $sql = "SELECT id, firstName FROM user WHERE email = '$myemail' and password = '$mypassword'";
+  $sql = "SELECT id, role, firstName FROM user WHERE email = '$myemail' and password = '$mypassword'";
   $result = $conn->query($sql);
 
   $count = mysqli_num_rows($result);
@@ -14,10 +14,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   if ($result->num_rows == 1) {
     $row = mysqli_fetch_array($result);
     $id = $row["id"];
+    $role = $row["role"];
     $myfirstname = $row["firstName"];
     $_SESSION['user_name'] = $myfirstname;
     $_SESSION['user_id'] = $id;
-    header("location: index.php");
+    $_SESSION['user_role'] = $role;
+
+    if($_SESSION['user_role'] == 'user') {
+      header("location: index.php");
+    } else if($_SESSION['user_role'] == 'admin') {
+      header("location: admin.php");
+    }
+
   } else {
     $error = "Your Login Name or Password is invalid";
   }
@@ -54,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <div class="mb-3">
             <h2>ĐĂNG NHẬP</h2>
             <label for="exampleInputEmail1" class="form-label">ĐỊA CHỈ EMAIL</label>
-            <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
           </div>
           <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">MẬT KHẨU</label>

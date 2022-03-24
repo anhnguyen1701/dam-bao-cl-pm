@@ -1,6 +1,11 @@
 <?php
 session_start();
 include("config.php");
+
+$_POST['search'] = "";
+if (isset($_POST['submit'])) {
+  $keyword = $_POST['search'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -19,30 +24,40 @@ include("config.php");
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="js/sidebar.js"></script>
+
+  <script>
+    function btnClick() {
+      const element = document.getElementById("content");
+      element.remove();
+    }
+  </script>
 </head>
 
 <body>
   <?php include 'includes/sidebar.php'; ?>
-
   <?php include 'includes/header.php'; ?>
 
   <main>
     <div class="container px-4">
+      <form action="" method="post">
+        <input type="text" name="search">
+        <input type="submit" name="submit" value="Search" onclick="btnClick()">
+      </form>
+
       <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-1 gx-3 gy-3">
-
         <?php
-          $query = "SELECT * FROM product";
-          $result = mysqli_query($conn, $query);
-          if (mysqli_num_rows($result) > 0) {
-            while ($row = mysqli_fetch_array($result)) {
-              $id = $row['id'];
-              $name = $row['name'];
-              $price = $row['price'];
-              $img1 = $row['img1'];
-              $price_text = number_format($price);
+        $query = "SELECT * FROM product";
+        $result = mysqli_query($conn, $query);
+        if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_array($result)) {
+            $id = $row['id'];
+            $name = $row['name'];
+            $price = $row['price'];
+            $img1 = $row['img1'];
+            $price_text = number_format($price);
 
-              echo "
-              <div class='col'>
+            echo "
+              <div class='col' id='content'>
               <a href='product.php?p=$id'>
                 <div class='card card-top'>
                   <img src='$img1' class='card-img-top'>
@@ -54,10 +69,11 @@ include("config.php");
               </a>
             </div>
               ";
-            }
           }
+        }
         ?>
       </div>
+
     </div>
   </main>
 </body>

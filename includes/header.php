@@ -37,7 +37,7 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
             <button class="openbtn" onclick="openNav()">☰</button>
-            <a class="navbar-brand" href="index.php">Logo</a>
+            <a class="navbar-brand" href="index.php">Zara</a>
             <ul class="navbar-nav d-flex">
                 <?php
                 // include('config.php');

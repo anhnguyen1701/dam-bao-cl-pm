@@ -143,9 +143,9 @@ session_start();
     <nav class="checkout-container container-fluid py-3">
         <p id="p-total">TỔNG 0 VND</p>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
             Launch demo modal
-        </button>
+        </button> -->
         <button id="btn-checkout" type="button" class="btn btn-dark" style="padding-left: 80px!important; padding-right: 80px!important; margin-left: 30px!important;">THANH TOÁN</button>
     </nav>
 </body>

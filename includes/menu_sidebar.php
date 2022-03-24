@@ -5,11 +5,11 @@
                 <h2>GIỎ HÀNG</h2>
             </a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
             <a class="nav-link">
                 <h2>ĐƠN HÀNG</h2>
             </a>
-        </li>
+        </li> -->
         <li class="nav-item">
             <a class="nav-link" href="#">
                 <h2>THÔNG TIN<br>CÁ NHÂN</h2>
